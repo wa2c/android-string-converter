@@ -31,7 +31,7 @@ class ResourceRepository {
      * Save resource files
      */
     fun saveMultiLanguage(csvUrl: String, csvList: List<CsvRow>, resourceDirPath: String) {
-        val stringMap = csvList.first().langText.keys.map { it to mutableListOf<StringItem>() }.toMap()
+        val stringMap = csvList.first().langText.keys.associateWith { mutableListOf<StringItem>() }
         var group = ""
         csvList.filter { it.resourceId.isNotEmpty() }.forEach { row ->
             if (row.title.isNotEmpty()) group = row.title
