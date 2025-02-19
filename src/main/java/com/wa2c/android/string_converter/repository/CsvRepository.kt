@@ -28,21 +28,27 @@ class CsvRepository {
                 .withCSVParser(parser)
                 .build()
                 .use { it.readAll() }
+
+            val codeMap = rawList[2].drop(2).mapIndexed { index, code -> index to code }.toMap()
+            val nameRow = CsvRow(
+                title = "",
+                resourceId = "",
+                langText = rawList[1].drop(2).mapIndexed { index, text -> codeMap[index]!! to text }.toMap(),
+            )
+
             rawList
-                .asSequence()
-                .drop(2)
-                .let { seq ->
-                    val titleRow = seq.first()
-                    val codeMap = titleRow.drop(2).mapIndexed { index, code -> index to code }.toMap()
-                    seq.map { row ->
-                        val langText = row.drop(2).mapIndexed { index, text -> codeMap[index]!! to text }.toMap()
-                        CsvRow(
-                            title = row[0],
-                            resourceId = row[1],
-                            langText = langText,
-                        )
-                    }
-                }.toList()
+                .drop(3)
+                .map { row ->
+                    // Data
+                    val langText = row.drop(2).mapIndexed { index, text -> codeMap[index]!! to text }.toMap()
+                    CsvRow(
+                        title = row[0],
+                        resourceId = row[1],
+                        langText = langText,
+                    )
+                }.let {
+                    listOf(nameRow) + it
+                }
         }
     }
 
