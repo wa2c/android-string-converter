@@ -4,7 +4,7 @@ import com.opencsv.CSVParserBuilder
 import com.opencsv.CSVReaderBuilder
 import com.wa2c.android.string_converter.model.CsvRow
 import java.io.FileInputStream
-import java.net.URL
+import java.net.URI
 import java.nio.charset.Charset
 
 /**
@@ -17,7 +17,7 @@ class CsvRepository {
         .build()
 
     fun downloadCsv(url: String): String {
-        return URL(url).openStream().bufferedReader(charset = Charsets.UTF_8).use { input ->
+        return URI(url).toURL().openStream().bufferedReader(charset = Charsets.UTF_8).use { input ->
             input.readText()
         }
     }
