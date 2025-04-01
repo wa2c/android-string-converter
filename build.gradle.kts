@@ -17,6 +17,7 @@ dependencies {
 
 private val spreadsheetUrlKey = "string_converter_spreadsheet_url"
 private val resPathKey = "string_converter_res_path"
+private val resNameKey = "string_converter_res_name"
 
 /**
  * CSV-XML conversion task.
@@ -54,9 +55,16 @@ val convertString by tasks.registering(JavaExec::class) {
             }.canonicalPath
         } ?: ""
 
+    val resName = (
+            property?.getProperty(resNameKey)
+                ?: System.getenv(resNameKey)
+                ?: System.getProperty(resNameKey)
+            ) ?: "strings"
+
     args(
         File(projectDir, "strings.csv"),
         resPath,
         spreadsheetUrl,
+        resName,
     )
 }
