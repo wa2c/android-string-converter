@@ -12,6 +12,7 @@ fun main(args: Array<String>) {
         inputFilePath: String,
         resourceDirPath: String,
         csvUrl: String,
+        resourceName: String,
     ) = args
 
     val csvRepository = CsvRepository()
@@ -27,5 +28,6 @@ fun main(args: Array<String>) {
         csvUrl = csvUrl,
         csvList = csvList,
         resourceDirPath = resourceDirPath,
+        resourceName = resourceName,
     )
 }

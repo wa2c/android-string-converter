@@ -32,7 +32,12 @@ class ResourceRepository {
     /**
      * Save resource files
      */
-    fun saveMultiLanguage(csvUrl: String, csvList: List<CsvRow>, resourceDirPath: String) {
+    fun saveMultiLanguage(
+        csvUrl: String,
+        csvList: List<CsvRow>,
+        resourceDirPath: String,
+        resourceName: String,
+    ) {
         val nameRow = csvList.first().langText
         val stringMap = csvList.first().langText.keys.associateWith { mutableListOf<StringItem>() }
         var group = ""
@@ -75,7 +80,7 @@ class ResourceRepository {
             val suffix = if (entry.key == "en") "" else "-${entry.key}"
             val dir = File(resourceDirPath + "/values${suffix}")
             if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "strings.xml")
+            val file = File(dir, "$resourceName.xml")
             if (!file.exists()) file.createNewFile()
 
             file.writeText(document.toString(printOptions) + "\n", XML_CHARSET)
