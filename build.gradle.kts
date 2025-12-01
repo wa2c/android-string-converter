@@ -1,6 +1,5 @@
 import java.util.Properties
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     kotlin("jvm") version "2.1.0"
 }
@@ -11,8 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.opencsv:opencsv:5.10")
-    implementation("org.redundent:kotlin-xml-builder:1.9.1")
+    implementation("com.opencsv:opencsv:5.12.0")
+    implementation("org.redundent:kotlin-xml-builder:1.9.3")
 }
 
 private val spreadsheetUrlKey = "string_converter_spreadsheet_url"
